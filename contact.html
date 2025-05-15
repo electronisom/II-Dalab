@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>II-Dalab - Contact Us</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="dalab.jpg">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #4B0082; /* Deep purple */
+            --primary-hover: #663399; /* Lighter purple for hover */
+            --secondary-color: #2E8B57; /* Sea green */
+            --background-color: #F5F5F5; /* Light gray background */
+            --card-background: #FFFFFF; /* White for cards */
+            --text-primary: #2F4F4F; /* Dark slate gray for primary text */
+            --text-secondary: #556B2F; /* Dark olive green for secondary text */
+            --border-color: #E0E0E0; /* Light gray for borders */
+            --shadow-sm: 0 1px 2px 0 rgba(75, 0, 130, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(75, 0, 130, 0.15);
+            --shadow-lg: 0 10px 15px -3px rgba(75, 0, 130, 0.2);
+            --danger-color: #dc2626;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-top: 80px; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--card-background);
+            box-shadow: var(--shadow-md);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: rgba(75, 0, 130, 0.1);
+        }
+        
+        .nav-links a.active-page {
+            color: var(--primary-color);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .content-section {
+            background-color: var(--card-background);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section h1 {
+            color: var(--primary-color);
+            font-size: 2.25rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+            text-align: center;
+            position: relative;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2.5rem;
+        }
+
+        .contact-form-container,
+        .contact-info-container,
+        .business-hours-container {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-form-container h2,
+        .contact-info-container h2 {
+            color: var(--primary-color);
+            font-size: 1.35rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.35rem;
+            font-size: 1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #fcfcfc;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-hover);
+            box-shadow: 0 0 0 3px rgba(102, 51, 153, 0.15);
+        }
+        
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.35rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .submit-button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-info-item .icon {
+            flex-shrink: 0;
+            width: 24px;
+            margin-right: 1rem;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            text-align: center;
+            margin-top: 0.1em;
+        }
+        
+        .contact-info-item .info-content strong {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info-item .info-content a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .contact-info-item .info-content a:hover {
+            text-decoration: underline;
+            color: var(--secondary-hover);
+        }
+
+        .map-container {
+            margin-top: 2rem;
+            height: 320px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: #e9e9e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .map-container p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Mobile Menu Styles (copied from about.html for consistency) */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1002;
+        }
+        .mobile-menu-button span { display: block; width: 24px; height: 2px; background: var(--primary-color); position: absolute; left: 8px; transition: all 0.3s ease; }
+        .mobile-menu-button span:nth-child(1) { top: 12px; }
+        .mobile-menu-button span:nth-child(2) { top: 19px; }
+        .mobile-menu-button span:nth-child(3) { top: 26px; }
+        .mobile-menu-button.active span:nth-child(1) { transform: rotate(45deg); top: 19px; }
+        .mobile-menu-button.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-button.active span:nth-child(3) { transform: rotate(-45deg); top: 19px; }
+        .menu-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
+        .menu-overlay.active { display: block; opacity: 1; }
+
+        @media (max-width: 768px) {
+            .nav-container { padding: 0.75rem 1rem; }
+            .logo img { height: 40px; }
+            .logo-text { font-size: 1.25rem; }
+            .mobile-menu-button { display: block; }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh; background: var(--card-background); flex-direction: column; padding: 80px 2rem 2rem; box-shadow: var(--shadow-lg); gap: 1rem; z-index: 1001; transition: right 0.3s ease; justify-content: flex-start; align-items: flex-start; }
+            .nav-links.active { right: 0; }
+            .nav-links a { width: 100%; text-align: left; padding: 1rem; font-size: 1.1rem; }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .logo img { height: 35px; }
+            .logo-text { font-size: 1.1rem; }
+        }
+
+        /* Toast Message (for form submission feedback) */
+        .toast-message {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease, bottom 0.3s ease;
+            visibility: hidden;
+        }
+        .toast-message.show {
+            opacity: 1;
+            bottom: 3rem;
+            visibility: visible;
+        }
+        .toast-message.error {
+            background-color: var(--danger-color);
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="dalab.jpg" alt="II-Dalab Logo">
+                <span class="logo-text">II-Dalab</span>
+            </div>
+            <button class="mobile-menu-button" onclick="toggleMenu()" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="home.html">Home</a>
+                <!-- <a href="documentation.html">Documentation</a> -->
+                <a href="about.html">About</a>
+                <a href="contact.html" class="active-page">Contact</a>
+            </div>
+        </nav>
+    </header>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <div class="container">
+        <section class="content-section">
+            <h1>Contact Us</h1>
+            <div class="contact-grid">
+                <div class="contact-form-container">
+                    <h2>Send Us a Message</h2>
+                    <form id="contactForm" method="POST" action="https://formsubmit.co/ii.dalab.som@gmail.com">
+                        <input type="hidden" name="_subject" value="New Contact Form Submission - II-Dalab Website">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="thanks.html"> 
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-info-container">
+                    <h2>Our Contact Information</h2>
+                    <div class="contact-info-item">
+                        <span class="icon">&#x1F4CD;</span> <!-- Map Pin Icon -->
+                        <div class="info-content">
+                            <strong>Address:</strong>
+                            <span>Somaliland , Hargeisa <br>Street Number 1<br>Burji Omar 3th floor room 309</span>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="icon">&#x260E;</span> <!-- Phone Icon -->
+                        <div class="info-content">
+                            <strong>Phone:</strong>
+                            <a href="tel:+252638501165">+252638501165</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <span class="icon">&#x2709;</span> <!-- Email Icon -->
+                        <div class="info-content">
+                            <strong>Email:</strong>
+                            <a href="mailto:ii.dalab.som@gmail.com">ii.dalab.som@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <h2 style="margin-top: 2rem;">Business Hours</h2>
+                    <div class="contact-info-item">
+                        <span class="icon">&#x1F550;</span> <!-- Clock Icon -->
+                        <div class="info-content">
+                           <span><strong>Saturday - Thurusday:</strong> 8:00 AM - 8:00 PM (Local Time)<br>
+                           <!-- <strong>Saturday:</strong> 10:00 AM - 4:00 PM (Local Time)<br> -->
+                           <strong>Friday:</strong> Closed</span>
+                        </div>
+                    </div>
+
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.7780107951207!2d44.05754537407264!3d9.561943580421028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1628bf002042a70f%3A0xda65d3f6dcdf1182!2sII-Dalab!5e1!3m2!1sen!2sso!4v1747281823562!5m2!1sen!2sso" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="toast-message" id="toastMessage"></div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo" style="justify-content: center; margin-bottom: 2rem;">
+                <img src="dalab.jpg" alt="II-Dalab Logo" style="height: 60px;">
+                <span class="logo-text" style="color: white;">II-Dalab</span>
+            </div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p style="opacity: 0.8;">© 2024 II-Dalab Buyer Agent. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuButton = document.querySelector('.mobile-menu-button');
+            const overlay = document.getElementById('menuOverlay');
+            const body = document.body;
+
+            navLinks.classList.toggle('active');
+            menuButton.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                if (window.innerWidth <= 768 && navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        window.addEventListener('resize', function() {
+            const navLinks = document.getElementById('navLinks');
+            const menuButton = document.querySelector('.mobile-menu-button');
+            const overlay = document.getElementById('menuOverlay');
+            const body = document.body;
+
+            if (window.innerWidth > 768) {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuButton.classList.remove('active');
+                    overlay.classList.remove('active');
+                    body.style.overflow = '';
+                }
+            }
+        });
+
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const subjectInput = document.getElementById('subject');
+        const messageInput = document.getElementById('message');
+
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+            // event.preventDefault(); // Allow default mailto action if validation passes
+
+            // Clear previous errors
+            clearError(nameInput);
+            clearError(emailInput);
+            clearError(subjectInput);
+            clearError(messageInput);
+
+            // Validate Name
+            if (nameInput.value.trim() === '') {
+                showError(nameInput, 'Full name is required.');
+                isValid = false;
+            }
+
+            // Validate Email
+            if (emailInput.value.trim() === '') {
+                showError(emailInput, 'Email address is required.');
+                isValid = false;
+            } else if (!isValidEmail(emailInput.value.trim())) {
+                showError(emailInput, 'Please enter a valid email address.');
+                isValid = false;
+            }
+
+            // Validate Subject
+            if (subjectInput.value.trim() === '') {
+                showError(subjectInput, 'Subject is required.');
+                isValid = false;
+            }
+
+            // Validate Message
+            if (messageInput.value.trim() === '') {
+                showError(messageInput, 'Message is required.');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // If all fields are valid, allow the form to submit to FormSubmit.co
+                // The event.preventDefault() is NOT called here.
+                showToast('Submitting your message...', 'info'); // Optional: provide feedback
+                // FormSubmit.co will handle redirection after submission.
+                // form.reset(); // Consider if reset is needed or if redirect makes it moot.
+                // clearAllErrors();
+            } else {
+                // If validation fails, prevent form submission
+                event.preventDefault(); 
+                showToast('Please correct the errors in the form.', 'error');
+            }
+        });
+
+        function isValidEmail(email) {
+            // Basic email validation regex
+            const emailRegex = /^\S+@\S+\.\S+$/;
+            return emailRegex.test(email);
+        }
+
+        function showToast(message, type = 'info') { // Changed default to 'info', added 'type' parameter
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+            toastMessage.className = 'toast-message'; // Reset classes
+            if (type === 'error') {
+                toastMessage.classList.add('error');
+            } else if (type === 'success') {
+                toastMessage.classList.add('success'); // Keep success style if needed for other things
+            } else {
+                toastMessage.classList.add('info'); // Default/info style
+            }
+            toastMessage.classList.add('show');
+
+            setTimeout(() => {
+                toastMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        function clearError(inputElement) {
+            // Find the specific error message span associated with this input
+            let errorSpan = inputElement.parentNode.querySelector('span.error-message-text');
+            if (errorSpan) {
+                errorSpan.textContent = ''; // Clear message
+                errorSpan.style.display = 'none'; // Hide
+            }
+            inputElement.classList.remove('input-error');
+        }
+        
+        function showError(inputElement, message) {
+            // Find or create the error message span associated with this input
+            let errorSpan = inputElement.parentNode.querySelector('span.error-message-text');
+            if (!errorSpan) {
+                errorSpan = document.createElement('span');
+                errorSpan.className = 'error-message-text'; // Specific class for the text span
+                inputElement.parentNode.appendChild(errorSpan);
+            }
+            errorSpan.textContent = message;
+            errorSpan.style.display = 'block'; // Show message
+            inputElement.classList.add('input-error');
+        }
+
+        function clearAllErrors() {
+            document.querySelectorAll('input.input-error, textarea.input-error').forEach(el => {
+                el.classList.remove('input-error');
+            });
+            document.querySelectorAll('span.error-message-text').forEach(el => {
+                el.textContent = '';
+                el.style.display = 'none';
+            });
+        }
+
+    </script>
+</body>
+</html> 

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>II-Dalab Buyer Agent - Your Global Shopping Partner</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="dalab.jpg">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #4B0082; /* Deep purple */
+            --primary-hover: #663399; /* Lighter purple for hover */
+            --secondary-color: #2E8B57; /* Sea green */
+            --secondary-hover: #3CB371; /* Medium sea green for hover */
+            --background-color: #F5F5F5; /* Light gray background */
+            --card-background: #FFFFFF; /* White for cards */
+            --text-primary: #2F4F4F; /* Dark slate gray for primary text */
+            --text-secondary: #556B2F; /* Dark olive green for secondary text */
+            --border-color: #E0E0E0; /* Light gray for borders */
+            --shadow-sm: 0 1px 2px 0 rgba(75, 0, 130, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(75, 0, 130, 0.15);
+            --shadow-lg: 0 10px 15px -3px rgba(75, 0, 130, 0.2);
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--card-background);
+            box-shadow: var(--shadow-md);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+            border-radius: 0.5rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background: rgba(75, 0, 130, 0.1);
+        }
+
+        .nav-links .cta-button {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-left: 2rem;
+        }
+
+        .nav-links .cta-button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            color: white !important;
+        }
+
+        /* Add general cta-button styles that will apply everywhere */
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            color: white !important;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-button {
+            display: none;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-button span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--primary-color);
+            position: absolute;
+            left: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-button span:nth-child(1) { top: 12px; }
+        .mobile-menu-button span:nth-child(2) { top: 19px; }
+        .mobile-menu-button span:nth-child(3) { top: 26px; }
+
+        .mobile-menu-button.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 19px;
+        }
+
+        .mobile-menu-button.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-button.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 19px;
+        }
+
+        /* Menu Overlay */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .hero {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        .platforms {
+            padding: 4rem 2rem;
+            background-color: var(--card-background);
+        }
+
+        .platforms-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .platform-item {
+            padding: 1rem;
+            background: var(--background-color);
+            border-radius: 0.5rem;
+            transition: transform 0.2s ease;
+        }
+
+        .platform-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .platform-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .how-it-works {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-background);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.75rem 1rem;
+                position: relative;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 1.25rem;
+            }
+
+            .mobile-menu-button {
+                display: block;
+                margin-left: auto;
+                z-index: 1002;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--card-background);
+                flex-direction: column;
+                padding: 80px 2rem 2rem;
+                box-shadow: var(--shadow-lg);
+                gap: 1rem;
+                z-index: 1000;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: left;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                font-size: 1.1rem;
+            }
+
+            .nav-links a:hover {
+                background: rgba(75, 0, 130, 0.1);
+            }
+
+            .nav-links .cta-button {
+                margin-left: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .hero-content .shop {
+                color: white !important;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .platforms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.5rem 1rem;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="dalab.jpg" alt="II-Dalab Logo">
+                <span class="logo-text">II-Dalab</span>
+            </div>
+            <button class="mobile-menu-button" onclick="toggleMenu()" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="home.html" class="active-page">Home</a>
+                <!-- <a href="documentation.html">Documentation</a> -->
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Global Shopping Partner</h1>
+            <p>Shop from any e-commerce platform worldwide with II-Dalab Buyer Agent. We handle the ordering process, ensuring you get exactly what you want, delivered right to your doorstep.</p>
+            <a href="contact.html" class="cta-button">CONTACT US NOW!</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem;">Why Choose II-Dalab?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Global Shopping Access</h3>
+                <p>Shop from any e-commerce platform worldwide, including Amazon, Shein, AliExpress, and more.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Easy Ordering Process</h3>
+                <p>Simple and intuitive ordering system. Just provide the links and we'll handle the rest.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Secure Transactions</h3>
+                <p>Your orders and personal information are always protected with our secure system.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Real-time Updates</h3>
+                <p>Stay informed about your order status with our comprehensive tracking system.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Customer Support</h3>
+                <p>Our dedicated team is always ready to assist you with any questions or concerns.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Fast Delivery</h3>
+                <p>We work with reliable shipping partners to ensure timely delivery of your orders.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="platforms" class="platforms">
+        <div class="platforms-container">
+            <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem;">Supported Platforms</h2>
+            <div class="platforms-grid">
+                <div class="platform-item">
+                    <h3>Amazon</h3>
+                    <p>Global & Regional Sites</p>
+                </div>
+                <div class="platform-item">
+                    <h3>Shein</h3>
+                    <p>Fashion & Lifestyle</p>
+                </div>
+                <div class="platform-item">
+                    <h3>AliExpress</h3>
+                    <p>Global Marketplace</p>
+                </div>
+                <div class="platform-item">
+                    <h3>Alibaba</h3>
+                    <p>B2B Marketplace</p>
+                </div>
+                <div class="platform-item">
+                    <h3>Noon</h3>
+                    <p>Middle East Shopping</p>
+                </div>
+                <div class="platform-item">
+                    <h3>iHerb</h3>
+                    <p>Health & Wellness</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works">
+        <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 2rem;">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Browse & Select</h3>
+                <p>Find your desired items on any supported e-commerce platform</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Place Order</h3>
+                <p>Submit your order through our easy-to-use form</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>We Process</h3>
+                <p>Our team handles the ordering and payment process</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Track & Receive</h3>
+                <p>Monitor your order status and receive your items</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo" style="justify-content: center; margin-bottom: 2rem;">
+                <img src="dalab.jpg" alt="II-Dalab Logo" style="height: 60px;">
+                <span class="logo-text" style="color: white;">II-Dalab</span>
+            </div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p style="opacity: 0.8;">© 2024 II-Dalab Buyer Agent. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="toastMessage"></div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuButton = document.querySelector('.mobile-menu-button');
+            const overlay = document.getElementById('menuOverlay');
+            const body = document.body;
+
+            navLinks.classList.toggle('active');
+            menuButton.classList.toggle('active');
+            overlay.classList.toggle('active');
+            body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        window.addEventListener('resize', function() {
+            const navLinks = document.getElementById('navLinks');
+            const menuButton = document.querySelector('.mobile-menu-button');
+            const overlay = document.getElementById('menuOverlay');
+            const body = document.body;
+
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                menuButton.classList.remove('active');
+                overlay.classList.remove('active');
+                body.style.overflow = '';
+            }
+        });
+
+        document.addEventListener('touchmove', function(event) {
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks.classList.contains('active')) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html> 
