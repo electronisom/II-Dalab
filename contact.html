@@ -391,7 +391,7 @@
                     <form id="contactForm" method="POST" action="https://formsubmit.co/ii.dalab.som@gmail.com">
                         <input type="hidden" name="_subject" value="New Contact Form Submission - II-Dalab Website">
                         <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="thanks.html"> 
+                        <input type="hidden" name="_next" value="https://ii-dalab.vercel.app/thanks.html"> 
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" name="name" required>
@@ -559,7 +559,7 @@
             if (isValid) {
                 // If all fields are valid, allow the form to submit to FormSubmit.co
                 // The event.preventDefault() is NOT called here.
-                showToast('Submitting your message...', 'info'); // Optional: provide feedback
+                // showToast('Submitting your message...', 'info'); // Temporarily commented out for testing POST issue
                 // FormSubmit.co will handle redirection after submission.
                 // form.reset(); // Consider if reset is needed or if redirect makes it moot.
                 // clearAllErrors();
